@@ -4,7 +4,7 @@ Syncly is an all-in-one productivity Android application concept designed to cen
 ## 🚀 The Vision <br /> 
 To reduce academic friction by providing a single source of truth for class schedules, group project collaboration, and personal study management.
 
-## 🛠️ Technical Stack (Concept)
+## 🛠️ Tech Stack s
 - Platform: Android (Java)
 - Backend: PHP/Node.JS
 - Database: MySQL
