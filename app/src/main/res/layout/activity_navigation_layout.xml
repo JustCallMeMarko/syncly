@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".layouts.NavigationLayout">
+        <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/fragment_container"
+            android:layout_above="@id/navbar"
+            android:name="com.example.syncly.fragments.Home"/>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="10dp"
+            android:id="@+id/navbar"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <ImageButton
+                    android:id="@+id/homeBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Home"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_home"
+                    app:tint="@color/mint_green" />
+
+                <ImageButton
+                    android:id="@+id/chatBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Chat"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_chat"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/spacesBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Spaces"
+                    android:padding="14dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_group"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/taskBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Tasks"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_task"
+                    app:tint="@color/white" />
+
+                <ImageButton
+                    android:id="@+id/notifBtn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:contentDescription="Notifications"
+                    android:padding="16dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/icon_notif"
+                    app:tint="@color/white" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+</RelativeLayout>

@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="members">
+        <item>All</item>
+        <item>Tasks</item>
+        <item>Mentions</item>
+        <item>Schedule</item>
+    </string-array>
+</resources>
