@@ -328,10 +328,11 @@
             <EditText
                 android:id="@+id/chatbotInput"
                 android:layout_width="290dp"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:background="@null"
                 android:hint="What would you like to know?"
                 android:textColorHint="#999999"
+                android:textColor="@color/white"
                 android:textSize="14sp"/>
 
             <androidx.cardview.widget.CardView

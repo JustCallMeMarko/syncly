@@ -1,163 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    tools:layout_editor_absoluteX="2dp"
-    tools:layout_editor_absoluteY="-89dp">
+    tools:context=".activities.MainActivity">
 
-
-    <Button
-        android:id="@+id/button"
-        style="@style/Widget.Material3.Button"
-        android:layout_width="129dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="25dp"
-        android:backgroundTint="#090909"
-        android:text="Create Task"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
-
-    <Button
-        android:id="@+id/button2"
-        style="@style/Widget.Material3.Button"
-        android:layout_width="130dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="26dp"
-        android:backgroundTint="#FFFFFF"
-        android:text="Cancel"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#070707"
-        app:cornerRadius="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3"
-        app:strokeColor="#999494"
-        app:strokeWidth="1dp" />
-
-    <Spinner
-        android:id="@+id/spinner3"
-        android:layout_width="340dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/bg_border"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
-    <TextView
-        android:id="@+id/textView7"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="When?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.108"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="340dp"
-        android:layout_height="45dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/bg_border"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Assignment"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.119"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        android:orientation="horizontal"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:id="@+id/backBtn">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            android:layout_marginRight="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="Where?"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextText" />
-
-    <TextView
-        android:id="@+id/TitleTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="108dp"
+        android:layout_below="@id/backBtn"
+        android:layout_marginHorizontal="20dp"
         android:text="Tasks"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.11"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/Title"
         android:layout_marginTop="4dp"
         android:text="Create tasks for teammates"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.156"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TitleTV" />
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"/>
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_below="@id/description"
+        android:layout_marginTop="20dp"
         android:text="Task"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.097"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"/>
 
     <EditText
-        android:id="@+id/editTextText"
-        style="@style/Widget.Material3.TextInputEditText.OutlinedBox.Dense"
-        android:layout_width="340dp"
+        android:id="@+id/taskInpt"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginStart="37dp"
+        android:layout_below="@id/task"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="7dp"
         android:background="@drawable/bg_border"
         android:ems="10"
         android:hint="What needs to be done?"
         android:inputType="text"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        android:paddingStart="10dp"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"/>
+
+    <TextView
+        android:id="@+id/assign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/taskInpt"
+        android:layout_marginTop="12dp"
+        android:text="Assignment"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"/>
 
     <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="340dp"
+        android:id="@+id/assignment"
+        android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="7dp"
+        android:layout_below="@id/assign"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
         android:background="@drawable/bg_border"
-        android:entries="@array/members"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"/>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/assignment"
+        android:layout_marginTop="12dp"
+        android:text="When?"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"/>
+
+    <Spinner
+        android:id="@+id/dateInpt"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_below="@id/date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_border"
+        android:layout_marginHorizontal="20dp"
+        android:textSize="16dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_marginBottom="12dp"
+        android:layout_marginHorizontal="20dp">
+
+        <Button
+            android:id="@+id/button"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="55dp"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="#090909"
+            android:text="Create Task"
+            app:cornerRadius="10dp"
+            android:textSize="16dp"/>
+
+        <Button
+            android:id="@+id/button2"
+            style="@style/Widget.Material3.Button"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="55dp"
+            android:backgroundTint="#FFFFFF"
+            android:text="Clear"
+            android:textColor="#070707"
+            app:cornerRadius="10dp"
+            app:strokeColor="#999494"
+            app:strokeWidth="1dp"
+            android:textSize="16dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

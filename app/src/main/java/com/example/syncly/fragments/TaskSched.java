@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,13 @@ import android.widget.Button;
 
 import com.example.syncly.R;
 import com.example.syncly.activities.Pomodoro;
+import com.example.syncly.activities.Task;
+import com.example.syncly.adapters.TaskSchedAdapter;
+import com.example.syncly.models.TaskSchedData;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,16 +78,39 @@ public class TaskSched extends Fragment {
         return inflater.inflate(R.layout.fragment_task_sched, container, false);
     }
 
-    Button pomodoroBtn;
+    Button pomodoroBtn, addBtn;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+
+        List<TaskSchedData> items = new ArrayList<>();
+        items.add(new TaskSchedData("AppDev","QUIZ 1", new Date()));
+        items.add(new TaskSchedData("AppDev","QUIZ 2", new Date()));
+        items.add(new TaskSchedData("Info Management","QUIZ 1", new Date()));
+        items.add(new TaskSchedData("Info Management","QUIZ 2", new Date()));
+
+
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(new TaskSchedAdapter(getContext(),items));
+
         pomodoroBtn = view.findViewById(R.id.pomodoroBtn);
+        addBtn = view.findViewById(R.id.addBtn);
 
         pomodoroBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Pomodoro.class);
+                startActivity(intent);
+            }
+        });
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Task.class);
                 startActivity(intent);
             }
         });
