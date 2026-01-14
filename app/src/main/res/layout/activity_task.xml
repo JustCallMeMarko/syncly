@@ -38,7 +38,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/descriptionTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/Title"
@@ -51,65 +51,67 @@
         android:id="@+id/task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/description"
+        android:layout_below="@id/descriptionTitle"
         android:layout_marginTop="20dp"
-        android:text="Task"
+        android:text="Name"
         android:layout_marginHorizontal="20dp"
         android:textSize="16dp"/>
 
     <EditText
-        android:id="@+id/taskInpt"
+        android:id="@+id/taskName"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_below="@id/task"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="7dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="5dp"
         android:background="@drawable/bg_border"
         android:ems="10"
-        android:hint="What needs to be done?"
+        android:hint="What Subject/Title?"
         android:inputType="text"
         android:paddingStart="10dp"
-        android:layout_marginHorizontal="20dp"
-        android:textSize="16dp"/>
+        android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/assign"
+        android:id="@+id/desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/taskInpt"
+        android:layout_below="@id/taskName"
         android:layout_marginTop="12dp"
-        android:text="Assignment"
+        android:text="Description"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_marginHorizontal="20dp"
         android:textSize="16dp"/>
 
-    <Spinner
-        android:id="@+id/assignment"
+    <EditText
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@id/assign"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/bg_border"
+        android:layout_below="@id/desc"
         android:layout_marginHorizontal="20dp"
-        android:textSize="16dp"/>
+        android:layout_marginTop="9dp"
+        android:background="@drawable/bg_border"
+        android:ems="10"
+        android:hint="Short Description"
+        android:inputType="text"
+        android:paddingStart="10dp"
+        android:textSize="16dp" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/when"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/assignment"
+        android:layout_below="@id/description"
         android:layout_marginTop="12dp"
         android:text="When?"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_marginHorizontal="20dp"
         android:textSize="16dp"/>
-
+    <!--    TODO: To be changed with datepicker -->
     <Spinner
-        android:id="@+id/dateInpt"
+        android:id="@+id/date"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@id/date"
+        android:layout_below="@id/when"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
         android:background="@drawable/bg_border"
@@ -126,7 +128,7 @@
         android:layout_marginHorizontal="20dp">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/createBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -138,7 +140,7 @@
             android:textSize="16dp"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/clearBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="0dp"
             android:layout_weight="1"

@@ -15,11 +15,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.syncly.R;
+import com.example.syncly.backend.TaskData;
 import com.example.syncly.fragments.Chat;
 import com.example.syncly.fragments.Home;
 import com.example.syncly.fragments.Notif;
 import com.example.syncly.fragments.Spaces;
 import com.example.syncly.fragments.TaskSched;
+import com.example.syncly.models.TaskSchedData;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class NavigationLayout extends AppCompatActivity {
     ImageButton homeBtn;
@@ -47,6 +53,10 @@ public class NavigationLayout extends AppCompatActivity {
         spacesBtn = findViewById(R.id.spacesBtn);
         taskBtn = findViewById(R.id.taskBtn);
         notifBtn = findViewById(R.id.notifBtn);
+
+
+        TaskData.getInstance().addItems("AppDev","QUIZ 1", new Date());
+        TaskData.getInstance().addItems("AppDev","QUIZ 2", new Date());
 
         setButton();
 

@@ -40,4 +40,8 @@ public class TaskSchedAdapter extends RecyclerView.Adapter<TaskSchedViewHolder> 
     public int getItemCount() {
         return items.size();
     }
+
+    public void updateData() {
+        notifyDataSetChanged();
+    }
 }

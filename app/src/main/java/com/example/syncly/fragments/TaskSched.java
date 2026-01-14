@@ -18,6 +18,7 @@ import com.example.syncly.R;
 import com.example.syncly.activities.Pomodoro;
 import com.example.syncly.activities.Task;
 import com.example.syncly.adapters.TaskSchedAdapter;
+import com.example.syncly.backend.TaskData;
 import com.example.syncly.models.TaskSchedData;
 
 import java.util.ArrayList;
@@ -79,22 +80,16 @@ public class TaskSched extends Fragment {
     }
 
     Button pomodoroBtn, addBtn;
+    RecyclerView recyclerView;
+    TaskSchedAdapter adapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.recyclerView);
 
-        List<TaskSchedData> items = new ArrayList<>();
-        items.add(new TaskSchedData("AppDev","QUIZ 1", new Date()));
-        items.add(new TaskSchedData("AppDev","QUIZ 2", new Date()));
-        items.add(new TaskSchedData("Info Management","QUIZ 1", new Date()));
-        items.add(new TaskSchedData("Info Management","QUIZ 2", new Date()));
-
-
-
-
+        adapter = new TaskSchedAdapter(getContext(), TaskData.getInstance().getItems());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(new TaskSchedAdapter(getContext(),items));
+        recyclerView.setAdapter(adapter);
 
         pomodoroBtn = view.findViewById(R.id.pomodoroBtn);
         addBtn = view.findViewById(R.id.addBtn);
@@ -114,5 +109,12 @@ public class TaskSched extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            adapter.updateData();
+        }
     }
 }
