@@ -1,29 +1,21 @@
-
 package com.example.syncly.fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.syncly.R;
-import com.example.syncly.adapters.NotifAdapter;
-import com.example.syncly.adapters.TaskSchedAdapter;
-import com.example.syncly.backend.TaskData;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Notif#newInstance} factory method to
+ * Use the {@link Drive#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Notif extends Fragment {
+public class Drive extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,7 +26,7 @@ public class Notif extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Notif() {
+    public Drive() {
         // Required empty public constructor
     }
 
@@ -44,11 +36,11 @@ public class Notif extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Notif.
+     * @return A new instance of fragment Drive.
      */
     // TODO: Rename and change types and number of parameters
-    public static Notif newInstance(String param1, String param2) {
-        Notif fragment = new Notif();
+    public static Drive newInstance(String param1, String param2) {
+        Drive fragment = new Drive();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,17 +61,6 @@ public class Notif extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notif, container, false);
-    }
-
-    RecyclerView recyclerView;
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recyclerView);
-
-        NotifAdapter adapter = new NotifAdapter(getContext(), TaskData.getInstance().getItems());
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        return inflater.inflate(R.layout.fragment_drive, container, false);
     }
 }

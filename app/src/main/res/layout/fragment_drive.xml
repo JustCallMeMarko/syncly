@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:padding="20dp"
-    tools:context=".activities.MainActivity">
+    tools:context=".fragments.Drive">
 
     <TextView
         android:layout_width="match_parent"

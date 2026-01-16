@@ -349,6 +349,7 @@
                     android:src="@drawable/icon_send"
                     android:backgroundTint="@color/green"
                     android:layout_gravity="center"
+                    android:background="@android:color/transparent"
                     />
             </androidx.cardview.widget.CardView>
 

@@ -11,15 +11,18 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.syncly.R;
+import com.example.syncly.activities.Task;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link Spaces#newInstance} factory method to
+ * Use the {@link SpacesHome#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Spaces extends Fragment {
+public class SpacesHome extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -30,7 +33,7 @@ public class Spaces extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public Spaces() {
+    public SpacesHome() {
         // Required empty public constructor
     }
 
@@ -40,11 +43,11 @@ public class Spaces extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Spaces.
+     * @return A new instance of fragment SpacesHome.
      */
     // TODO: Rename and change types and number of parameters
-    public static Spaces newInstance(String param1, String param2) {
-        Spaces fragment = new Spaces();
+    public static SpacesHome newInstance(String param1, String param2) {
+        SpacesHome fragment = new SpacesHome();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,16 +68,52 @@ public class Spaces extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_spaces, container, false);
+        return inflater.inflate(R.layout.fragment_spaces_home, container, false);
     }
-
-    CardView spacesBtn;
+    LinearLayout backBtn;
+    CardView members, folder;
+    Button taskBtn, chatBtn;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        spacesBtn = view.findViewById(R.id.spacesBtn);
+        backBtn = view.findViewById(R.id.backBtn);
+        members = view.findViewById(R.id.members);
+        folder = view.findViewById(R.id.folder);
+        taskBtn = view.findViewById(R.id.taskBtn);
+        chatBtn = view.findViewById(R.id.chatBtn);
 
-        spacesBtn.setOnClickListener(new View.OnClickListener() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+        members.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new Members()) // Replace with your container ID
+                        .addToBackStack(null) // This is the "magic" line that enables the back button
+                        .commit();
+            }
+        });
+        folder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new Drive()) // Replace with your container ID
+                        .addToBackStack(null) // This is the "magic" line that enables the back button
+                        .commit();
+            }
+        });
+        taskBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Task.class);
+                startActivity(intent);
+            }
+        });
+        chatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
