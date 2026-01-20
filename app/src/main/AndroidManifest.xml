@@ -30,10 +30,6 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.Drive"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.Pomodoro"
             android:exported="false"
             android:screenOrientation="portrait" />
