@@ -85,11 +85,9 @@ public class Login extends Fragment {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
 
-    TextView signup;
-    TextView errorMsg;
+    TextView signup, forgotPass;
     CardView errorCard;
-    EditText emailInpt;
-    EditText passInpt;
+    EditText emailInpt, passInpt;
     Button loginBtn;
     OkHttpClient client;
     @Override
@@ -101,8 +99,7 @@ public class Login extends Fragment {
         emailInpt = view.findViewById(R.id.emailInpt);
         passInpt = view.findViewById(R.id.passInpt);
         loginBtn = view.findViewById(R.id.loginBtn);
-        errorMsg = view.findViewById(R.id.errorMsg);
-        errorCard = view.findViewById(R.id.errorCard);
+        forgotPass = view.findViewById(R.id.forgotPass);
 
         // 2. Signup Click Listener (Swapping Fragments)
         signup.setOnClickListener(v -> {
@@ -113,10 +110,18 @@ public class Login extends Fragment {
                     .commit();
         });
 
+        forgotPass.setOnClickListener(v -> {
+            // Since you asked how to change fragments in the previous question:
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new ForgotPassword()) // Replace with your actual SignUpFragment class
+                    .addToBackStack(null) // Allows user to press "Back" to return to login
+                    .commit();
+        });
+
         // 3. Login Click Listener (Starting new Activity)
         loginBtn.setOnClickListener(v -> {
-            String email = emailInpt.getText().toString();
-            String pass = passInpt.getText().toString();
+//            String email = emailInpt.getText().toString();
+//            String pass = passInpt.getText().toString();
 
             Intent intent = new Intent(getActivity(), NavigationLayout.class);
             startActivity(intent);

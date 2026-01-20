@@ -2,11 +2,14 @@ package com.example.syncly.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.syncly.R;
 
@@ -57,10 +60,23 @@ public class ForgotPassword extends Fragment {
         }
     }
 
+    Button backBtn;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_forgot_password, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        backBtn = view.findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(v -> {
+            getParentFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, new Login()) // Replace with your actual SignUpFragment class
+                    .addToBackStack(null) // Allows user to press "Back" to return to login
+                    .commit();
+        });
     }
 }

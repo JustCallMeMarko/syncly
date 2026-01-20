@@ -71,11 +71,8 @@ public class SignUp extends Fragment {
     }
 
     TextView login;
-    TextView errorMsg;
     CardView errorCard;
-    EditText emailInpt;
-    EditText passInpt;
-    EditText usernameInpt;
+    EditText emailInpt, passInpt, nameInpt;
     Button signupBtn;
 
     @Override
@@ -84,12 +81,10 @@ public class SignUp extends Fragment {
 
         // 1. Initialize Views using 'view.findViewById'
         login = view.findViewById(R.id.login);
-        usernameInpt = view.findViewById(R.id.usernameInpt);
+        nameInpt = view.findViewById(R.id.nameInpt);
         emailInpt = view.findViewById(R.id.emailInpt);
         passInpt = view.findViewById(R.id.passInpt);
         signupBtn = view.findViewById(R.id.signupBtn);
-        errorMsg = view.findViewById(R.id.errorMsg);
-        errorCard = view.findViewById(R.id.errorCard);
 
           // 2. Signup Click Listener (Swapping Fragments)
         login.setOnClickListener(v -> {
@@ -103,12 +98,11 @@ public class SignUp extends Fragment {
         // 3. Login Click Listener (Starting new Activity)
 
         signupBtn.setOnClickListener(v -> {
-            String username = usernameInpt.getText().toString();
+            String name = nameInpt.getText().toString();
             String email = emailInpt.getText().toString();
             String pass = passInpt.getText().toString();
 
-            if(username.isEmpty() || email.isEmpty() || pass.isEmpty()){
-                errorMsg.setText("Please Input All Fields");
+            if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
                 errorCard.setVisibility(View.VISIBLE);
                 return;
             }
