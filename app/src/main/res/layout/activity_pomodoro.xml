@@ -106,7 +106,7 @@
             app:cornerRadius="8dp"
             android:text="START TIMER"
             android:backgroundTint="@color/green"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="16dp"
             android:layout_alignParentBottom="true"
