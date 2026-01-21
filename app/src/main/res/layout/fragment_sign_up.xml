@@ -40,13 +40,19 @@
         android:layout_below="@id/header"
         >
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/googleBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:text="sign in with google"
+            android:textColor="@color/black"
             android:backgroundTint="@color/light_grey"
             android:layout_marginBottom="8dp"/>
         <com.google.android.material.button.MaterialButton
+            android:id="@+id/facebookBtn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
+            android:text="sign in with facebook"
+            android:textColor="@color/black"
             android:backgroundTint="@color/light_grey"/>
     </LinearLayout>
     <TextView
