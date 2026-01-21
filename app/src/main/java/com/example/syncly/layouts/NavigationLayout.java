@@ -105,7 +105,7 @@ public class NavigationLayout extends AppCompatActivity {
     }
     public void setButton(){
         resetButtons();
-        int green = ContextCompat.getColor(this, R.color.mint_green);
+        int green = ContextCompat.getColor(this, R.color.green);
         switch (selected) {
             case "home" :
                 homeBtn.setColorFilter( green );

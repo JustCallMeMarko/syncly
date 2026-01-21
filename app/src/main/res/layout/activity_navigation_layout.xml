@@ -38,7 +38,7 @@
                     android:padding="16dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_home"
-                    app:tint="@color/mint_green" />
+                    app:tint="@color/green" />
 
                 <ImageButton
                     android:id="@+id/chatBtn"

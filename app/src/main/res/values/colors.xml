@@ -2,8 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="green">#CDE0AC</color>
-    <color name="mint_green">#2FF29E</color>
+    <color name="green">#33DC94</color>
     <color name="card_green">#5ABC66</color>
     <color name="blue">#0048FF</color>
     <color name="light_blue">#3D71FF</color>

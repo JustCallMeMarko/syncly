@@ -15,9 +15,9 @@
         android:layout_marginBottom="32dp"
         >
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:src="@drawable/syncly"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/light_grey"
             app:cardCornerRadius="10dp"
             android:layout_marginBottom="16dp">
@@ -94,7 +94,7 @@
                 >
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="26dp"
+                    android:layout_height="22dp"
                     android:layout_weight="2"
                     android:src="@drawable/icon_email"
                     />
@@ -116,7 +116,7 @@
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/light_grey"
             app:cardCornerRadius="10dp"
             android:layout_marginBottom="16dp">
@@ -128,7 +128,7 @@
                 >
                 <ImageView
                     android:layout_width="0dp"
-                    android:layout_height="26dp"
+                    android:layout_height="22dp"
                     android:layout_weight="2"
                     android:src="@drawable/icon_email"
                     />
@@ -150,7 +150,7 @@
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="50dp"
             android:backgroundTint="@color/light_grey"
             app:cardCornerRadius="10dp"
             android:layout_marginBottom="16dp">
@@ -184,7 +184,7 @@
         android:layout_above="@id/question"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="-2dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/green"
         android:text="Sign up"
         android:textSize="20sp"
         app:cornerRadius="10dp" />
@@ -210,6 +210,7 @@
             android:id="@+id/login"
             android:padding="10dp"
             android:textSize="14sp"
-            android:text="Login"/>
+            android:text="Login"
+            android:textColor="@color/green"/>
     </LinearLayout>
 </RelativeLayout>
