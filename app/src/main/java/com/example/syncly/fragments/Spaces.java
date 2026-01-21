@@ -78,8 +78,8 @@ public class Spaces extends Fragment {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new SpacesHome()) // Replace with your container ID
-                        .addToBackStack(null) // This is the "magic" line that enables the back button
+                        .replace(R.id.fragment_container, new SpacesHome())
+                        .addToBackStack(null)
                         .commit();
             }
         });

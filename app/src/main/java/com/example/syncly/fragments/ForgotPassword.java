@@ -74,8 +74,8 @@ public class ForgotPassword extends Fragment {
         backBtn = view.findViewById(R.id.backBtn);
         backBtn.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new Login()) // Replace with your actual SignUpFragment class
-                    .addToBackStack(null) // Allows user to press "Back" to return to login
+                    .replace(R.id.fragment_container, new Login())
+                    .addToBackStack(null)
                     .commit();
         });
     }

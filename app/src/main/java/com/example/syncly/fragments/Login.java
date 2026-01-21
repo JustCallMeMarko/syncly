@@ -14,22 +14,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.syncly.R;
 import com.example.syncly.layouts.NavigationLayout;
-import com.example.syncly.models.UserDataModel;
-import com.google.gson.Gson;
 
-import java.io.IOException;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -89,36 +78,30 @@ public class Login extends Fragment {
     CardView errorCard;
     EditText emailInpt, passInpt;
     Button loginBtn;
-    OkHttpClient client;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 1. Initialize Views using 'view.findViewById'
         signup = view.findViewById(R.id.signup);
         emailInpt = view.findViewById(R.id.emailInpt);
         passInpt = view.findViewById(R.id.passInpt);
         loginBtn = view.findViewById(R.id.loginBtn);
         forgotPass = view.findViewById(R.id.forgotPass);
 
-        // 2. Signup Click Listener (Swapping Fragments)
         signup.setOnClickListener(v -> {
-            // Since you asked how to change fragments in the previous question:
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new SignUp()) // Replace with your actual SignUpFragment class
-                    .addToBackStack(null) // Allows user to press "Back" to return to login
+                    .replace(R.id.fragment_container, new SignUp())
+                    .addToBackStack(null)
                     .commit();
         });
 
         forgotPass.setOnClickListener(v -> {
-            // Since you asked how to change fragments in the previous question:
             getParentFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new ForgotPassword()) // Replace with your actual SignUpFragment class
-                    .addToBackStack(null) // Allows user to press "Back" to return to login
+                    .replace(R.id.fragment_container, new ForgotPassword())
+                    .addToBackStack(null)
                     .commit();
         });
 
-        // 3. Login Click Listener (Starting new Activity)
         loginBtn.setOnClickListener(v -> {
 //            String email = emailInpt.getText().toString();
 //            String pass = passInpt.getText().toString();

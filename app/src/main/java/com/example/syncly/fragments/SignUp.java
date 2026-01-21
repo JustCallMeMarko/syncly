@@ -79,23 +79,18 @@ public class SignUp extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // 1. Initialize Views using 'view.findViewById'
         login = view.findViewById(R.id.login);
         nameInpt = view.findViewById(R.id.nameInpt);
         emailInpt = view.findViewById(R.id.emailInpt);
         passInpt = view.findViewById(R.id.passInpt);
         signupBtn = view.findViewById(R.id.signupBtn);
 
-          // 2. Signup Click Listener (Swapping Fragments)
         login.setOnClickListener(v -> {
-            // Since you asked how to change fragments in the previous question:
             getParentFragmentManager().beginTransaction()
-                      .replace(R.id.fragment_container, new Login()) // Replace with your actual SignUpFragment class
-                      .addToBackStack(null) // Allows user to press "Back" to return to login
+                      .replace(R.id.fragment_container, new Login())
+                      .addToBackStack(null)
                       .commit();
         });
-
-        // 3. Login Click Listener (Starting new Activity)
 
         signupBtn.setOnClickListener(v -> {
             String name = nameInpt.getText().toString();
