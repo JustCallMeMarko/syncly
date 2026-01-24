@@ -1,7 +1,11 @@
 package com.example.syncly.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -13,22 +17,34 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.syncly.R;
+import com.example.syncly.layouts.NavigationLayout;
+import com.facebook.CallbackManager;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link SignUp#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.facebook.AccessToken;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.FacebookAuthProvider;
+
+
+
 public class SignUp extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -36,15 +52,6 @@ public class SignUp extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SignUp.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SignUp newInstance(String param1, String param2) {
         SignUp fragment = new SignUp();
         Bundle args = new Bundle();
@@ -53,6 +60,11 @@ public class SignUp extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+    /**
+     * A simple {@link Fragment} subclass.
+     * Use the {@link SignUp#newInstance} factory method to
+     * create an instance of this fragment.
+     */
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,30 +78,96 @@ public class SignUp extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_sign_up, container, false);
     }
 
     TextView login;
     CardView errorCard;
     EditText emailInpt, passInpt, nameInpt;
-    Button signupBtn;
+    Button signupBtn, googleBtn;
+
+    GoogleSignInClient googleSignInClient;
+    ActivityResultLauncher<Intent> activityResultLauncher;
+    CallbackManager mCallbackManager;
+    FirebaseAuth mAuth;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+
+
+
+
+
 
         login = view.findViewById(R.id.login);
         nameInpt = view.findViewById(R.id.nameInpt);
         emailInpt = view.findViewById(R.id.emailInpt);
         passInpt = view.findViewById(R.id.passInpt);
         signupBtn = view.findViewById(R.id.signupBtn);
+        googleBtn = view.findViewById(R.id.googleBtn);
+
+
+        mCallbackManager = CallbackManager.Factory.create();
+        mAuth = FirebaseAuth.getInstance();
+
+        LoginButton facebookButton = view.findViewById(R.id.facebookBtn);
+        facebookButton.setFragment(this);
+        facebookButton.setReadPermissions("public_profile");
+
+        facebookButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                handleFacebookAccessToken(loginResult.getAccessToken());
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(getActivity(), "Facebook cancelled", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Toast.makeText(getActivity(), error.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .build();
+
+        googleSignInClient = GoogleSignIn.getClient(requireContext(), gso);
+
+        activityResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Task<GoogleSignInAccount> task =
+                                GoogleSignIn.getSignedInAccountFromIntent(result.getData());
+                        handleSignInTask(task);
+                    } else {
+                        Toast.makeText(getActivity(), "Google sign-in cancelled", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        googleBtn.setOnClickListener(v -> {
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            activityResultLauncher.launch(signInIntent);
+        });
 
         login.setOnClickListener(v -> {
             getParentFragmentManager().beginTransaction()
-                      .replace(R.id.fragment_container, new Login())
-                      .addToBackStack(null)
-                      .commit();
+                    .replace(R.id.fragment_container, new Login())
+                    .addToBackStack(null)
+                    .commit();
         });
 
         signupBtn.setOnClickListener(v -> {
@@ -97,10 +175,52 @@ public class SignUp extends Fragment {
             String email = emailInpt.getText().toString();
             String pass = passInpt.getText().toString();
 
-            if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
-                errorCard.setVisibility(View.VISIBLE);
+            if (name.isEmpty() || email.isEmpty() || pass.isEmpty()) {
+                Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
+
                 return;
             }
         });
     }
+
+    private void handleSignInTask(Task<GoogleSignInAccount> task) {
+        try {
+            GoogleSignInAccount account = task.getResult(ApiException.class);
+
+            String name = account.getDisplayName();
+            String email = account.getEmail();
+
+            Intent intent = new Intent(getActivity(), NavigationLayout.class);
+            startActivity(intent);
+            getActivity().finish();
+
+        } catch (ApiException e) {
+            Toast.makeText(getActivity(),
+                    "Google Sign-In failed: " + e.getStatusCode(),
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+    }
+
+    private void handleFacebookAccessToken(AccessToken token) {
+        AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
+
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(requireActivity(), task -> {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(getActivity(), NavigationLayout.class);
+                        startActivity(intent);
+                        requireActivity().finish();
+                    } else {
+                        Toast.makeText(getActivity(), "Facebook auth failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
