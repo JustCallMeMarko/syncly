@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -40,8 +41,16 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.volley)
     implementation(libs.glide)
+    implementation(libs.firebase.auth)
 
     testImplementation(libs.junit)
+    implementation(platform("com.google.firebase:firebase-bom:34.8.0"))
+    implementation("com.google.firebase:firebase-analytics")
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-}
+    implementation("androidx.credentials:credentials:1.6.0-rc01")
+    implementation("androidx.credentials:credentials-play-services-auth:1.6.0-rc01")
+    implementation("com.google.android.libraries.identity.googleid:googleid:<latest version>")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation("com.facebook.android:facebook-android-sdk:latest.release")
+    }
