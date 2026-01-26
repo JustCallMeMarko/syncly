@@ -1,5 +1,6 @@
 package com.example.syncly.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,8 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
+import com.example.syncly.layouts.NavigationLayout;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +85,7 @@ public class SignUp extends Fragment {
     EditText emailInpt, passInpt, nameInpt;
     Button signupBtn;
 
+    String URL = "http://10.0.2.2/syncly/Register.php";
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -97,10 +108,30 @@ public class SignUp extends Fragment {
             String email = emailInpt.getText().toString();
             String pass = passInpt.getText().toString();
 
-            if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
-                errorCard.setVisibility(View.VISIBLE);
+            if(email.isEmpty() || pass.isEmpty() || name.isEmpty()){
+                Toast.makeText(getActivity(), "Input all fields", Toast.LENGTH_LONG).show();
                 return;
             }
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    URL,
+                    response -> {
+                        Intent intent = new Intent(getActivity(), NavigationLayout.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    },
+                    error -> Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("username", name);
+                    params.put("email", email);
+                    params.put("password", pass);
+                    return params; }
+            };
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            queue.add(request);
         });
     }
 }

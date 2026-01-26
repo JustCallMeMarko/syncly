@@ -14,10 +14,17 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
 import com.example.syncly.layouts.NavigationLayout;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -78,6 +85,7 @@ public class Login extends Fragment {
     CardView errorCard;
     EditText emailInpt, passInpt;
     Button loginBtn;
+    String URL = "http://10.0.2.2/syncly/Login.php";
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -103,61 +111,32 @@ public class Login extends Fragment {
         });
 
         loginBtn.setOnClickListener(v -> {
-//            String email = emailInpt.getText().toString();
-//            String pass = passInpt.getText().toString();
+            String email = emailInpt.getText().toString();
+            String pass = passInpt.getText().toString();
 
-            Intent intent = new Intent(getActivity(), NavigationLayout.class);
-            startActivity(intent);
-            getActivity().finish();
-
-//            if(email.isEmpty() || pass.isEmpty()){
-//                errorMsg.setText("Please Input All Fields");
-//                errorCard.setVisibility(View.VISIBLE);
-//                return;
-//            }
-//            client = new OkHttpClient();
-//            RequestBody requestBody = new FormBody.Builder()
-//                    .add("email", email)
-//                    .add("password", pass)
-//                    .build();
-//            Request request = new Request.Builder()
-//                    .url("http://10.0.2.2/syncly/Login.php")
-//                    .post(requestBody)
-//                    .build();
-//            client.newCall(request).enqueue(new Callback() {
-//                @Override
-//                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-//                    getActivity().runOnUiThread(() -> {
-//                        Toast.makeText(getActivity(), "Connection Failed", Toast.LENGTH_SHORT).show();
-//                    });
-//                }
-//
-//                @Override
-//                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-//                    if (response.isSuccessful()) {
-//                        String jsonData = response.body().string();
-//
-//                        // Parse the JSON
-//                        Gson gson = new Gson();
-//                        UserDataModel loginResponse = gson.fromJson(jsonData, UserDataModel.class);
-//
-//                        getActivity().runOnUiThread(() -> {
-//                            // Access the nested "status" inside "info"
-//                            if (loginResponse.getInfo() != null &&
-//                                    "Success".equalsIgnoreCase(loginResponse.getInfo().getStatus())) {
-//
-//                                Intent intent = new Intent(getActivity(), NavigationLayout.class);
-//                                startActivity(intent);
-//                                getActivity().finish();
-//
-//                            } else {
-//                                errorMsg.setText("Incorrect Email/Pasword");
-//                                errorCard.setVisibility(View.VISIBLE);
-//                            }
-//                        });
-//                    }
-//                }
-//            });
+            if(email.isEmpty() || pass.isEmpty()){
+                Toast.makeText(getActivity(), "Input all fields", Toast.LENGTH_LONG).show();
+                return;
+            }
+            StringRequest request = new StringRequest(
+                    Request.Method.POST,
+                    URL,
+                    response -> {
+                        Intent intent = new Intent(getActivity(), NavigationLayout.class);
+                        startActivity(intent);
+                        getActivity().finish();
+                    },
+                    error -> Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show()
+            ) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("email", email);
+                    params.put("password", pass);
+                    return params; }
+            };
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            queue.add(request);
         });
     }
 }

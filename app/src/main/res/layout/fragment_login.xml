@@ -99,6 +99,7 @@
                     android:src="@drawable/icon_email"
                     />
                 <EditText
+                    android:id="@+id/emailInpt"
                     android:layout_width="0dp"
                     android:layout_weight="9"
                     android:layout_height="match_parent"
@@ -132,11 +133,14 @@
                     android:src="@drawable/icon_lock"
                     />
                 <EditText
+                    android:id="@+id/passInpt"
                     android:layout_width="0dp"
                     android:layout_weight="9"
+                    android:inputType="textPassword"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:layout_marginEnd="20dp"/>
+
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
