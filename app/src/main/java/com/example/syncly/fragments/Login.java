@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,14 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
 import com.example.syncly.layouts.NavigationLayout;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -122,9 +127,21 @@ public class Login extends Fragment {
                     Request.Method.POST,
                     URL,
                     response -> {
-                        Intent intent = new Intent(getActivity(), NavigationLayout.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            String status = json.getString("status");
+                            String message = json.getString("message");
+
+                            if(status.equals("success")){
+                                Intent intent = new Intent(getActivity(), NavigationLayout.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }else{
+                                Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     },
                     error -> Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show()
             ) {
