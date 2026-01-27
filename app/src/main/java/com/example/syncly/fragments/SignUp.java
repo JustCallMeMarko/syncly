@@ -23,6 +23,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
 import com.example.syncly.layouts.NavigationLayout;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -116,9 +119,21 @@ public class SignUp extends Fragment {
                     Request.Method.POST,
                     URL,
                     response -> {
-                        Intent intent = new Intent(getActivity(), NavigationLayout.class);
-                        startActivity(intent);
-                        getActivity().finish();
+                        try {
+                            JSONObject json = new JSONObject(response);
+                            String status = json.getString("status");
+                            String message = json.getString("message");
+
+                            if(status.equals("success")){
+                                Intent intent = new Intent(getActivity(), NavigationLayout.class);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }else{
+                                Toast.makeText(getActivity(), "Error: " + message, Toast.LENGTH_LONG).show();
+                            }
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
                     },
                     error -> Toast.makeText(getActivity(), "Error: " + error.getMessage(), Toast.LENGTH_LONG).show()
             ) {
