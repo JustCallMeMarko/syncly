@@ -26,7 +26,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/black"
                 android:orientation="horizontal"
-                android:weightSum="5">
+                android:weightSum="4">
 
                 <ImageButton
                     android:id="@+id/homeBtn"
@@ -74,18 +74,6 @@
                     android:padding="16dp"
                     android:scaleType="fitCenter"
                     android:src="@drawable/icon_task"
-                    app:tint="@color/white" />
-
-                <ImageButton
-                    android:id="@+id/notifBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:contentDescription="Notifications"
-                    android:padding="16dp"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/icon_notif"
                     app:tint="@color/white" />
 
             </LinearLayout>

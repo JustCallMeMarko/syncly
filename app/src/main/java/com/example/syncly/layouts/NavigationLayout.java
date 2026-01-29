@@ -11,28 +11,21 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.syncly.R;
 import com.example.syncly.backend.TaskData;
 import com.example.syncly.fragments.Chat;
 import com.example.syncly.fragments.Home;
-import com.example.syncly.fragments.Notif;
 import com.example.syncly.fragments.Spaces;
 import com.example.syncly.fragments.TaskSched;
-import com.example.syncly.models.TaskSchedData;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class NavigationLayout extends AppCompatActivity {
     ImageButton homeBtn;
     ImageButton chatBtn;
     ImageButton spacesBtn;
     ImageButton taskBtn;
-    ImageButton notifBtn;
 
     static String selected = "home";
 
@@ -52,7 +45,6 @@ public class NavigationLayout extends AppCompatActivity {
         chatBtn = findViewById(R.id.chatBtn);
         spacesBtn = findViewById(R.id.spacesBtn);
         taskBtn = findViewById(R.id.taskBtn);
-        notifBtn = findViewById(R.id.notifBtn);
 
 
         TaskData.getInstance().addItems("AppDev","QUIZ 1", new Date());
@@ -87,13 +79,6 @@ public class NavigationLayout extends AppCompatActivity {
                 loadFragment(new TaskSched(), "task");
             }
         });
-
-        notifBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadFragment(new Notif(), "notif");
-            }
-        });
     }
     public void resetButtons(){
         int white = ContextCompat.getColor(this, R.color.white);
@@ -101,7 +86,6 @@ public class NavigationLayout extends AppCompatActivity {
         chatBtn.setColorFilter( white );
         spacesBtn.setColorFilter( white );
         taskBtn.setColorFilter( white );
-        notifBtn.setColorFilter( white );
     }
     public void setButton(){
         resetButtons();
@@ -118,9 +102,6 @@ public class NavigationLayout extends AppCompatActivity {
                 break;
             case "task" :
                 taskBtn.setColorFilter( green );
-                break;
-            case "notif" :
-                notifBtn.setColorFilter( green );
                 break;
         }
     }

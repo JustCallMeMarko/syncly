@@ -19,27 +19,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.syncly.R;
 import com.example.syncly.adapters.TaskSchedAdapter;
 import com.example.syncly.backend.TaskData;
-import com.example.syncly.models.TaskSchedData;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 public class Pomodoro extends AppCompatActivity {
+    private static final long WORK_TIME = 25 * 60 * 1000;
+    private static final long BREAK_TIME = 5 * 60 * 1000;
 
-    LinearLayout backBtn;
-    Button startBtn, resetBtn;
-    TextView timer;
+    private LinearLayout backBtn;
+    private Button startBtn, resetBtn;
+    private TextView timer, modeStatus;
+
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning = false;
-    private long timeLeftInMillis = 25 * 60 * 1000;
+    private boolean isWorkMode = true;
+    private long timeLeftInMillis = WORK_TIME;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_pomodoro);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -51,44 +52,26 @@ public class Pomodoro extends AppCompatActivity {
         resetBtn = findViewById(R.id.resetBtn);
         timer = findViewById(R.id.timer);
         backBtn = findViewById(R.id.backBtn);
+        modeStatus = findViewById(R.id.modeStatus);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(new TaskSchedAdapter(getApplicationContext(), TaskData.getInstance().getItems()));
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        startBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isTimerRunning) {
-                    pauseTimer();
-                } else {
-                    startTimer();
-                }
-            }
-        });
-        resetBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (countDownTimer != null) {
-                    countDownTimer.cancel();
-                }
+        backBtn.setOnClickListener(v -> finish());
 
-                timeLeftInMillis = 25 * 60 * 1000;
-
-                updateCountDownText();
-                isTimerRunning = false;
-
-                startBtn.setText("START");
-                resetBtn.setVisibility(View.GONE);
+        startBtn.setOnClickListener(v -> {
+            if (isTimerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
             }
         });
 
+        resetBtn.setOnClickListener(v -> resetTimer());
+
+        updateCountDownText();
     }
+
     private void startTimer() {
         countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
             @Override
@@ -100,13 +83,13 @@ public class Pomodoro extends AppCompatActivity {
             @Override
             public void onFinish() {
                 isTimerRunning = false;
-                startBtn.setText("START");
+                toggleMode();
             }
         }.start();
 
         isTimerRunning = true;
-        resetBtn.setVisibility(View.VISIBLE);
         startBtn.setText("PAUSE");
+        resetBtn.setVisibility(View.VISIBLE);
     }
 
     private void pauseTimer() {
@@ -115,6 +98,42 @@ public class Pomodoro extends AppCompatActivity {
         }
         isTimerRunning = false;
         startBtn.setText("RESUME");
+    }
+
+    private void resetTimer() {
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+        isTimerRunning = false;
+        isWorkMode = true;
+        timeLeftInMillis = WORK_TIME;
+
+        updateCountDownText();
+        updateUI();
+        startBtn.setText("START");
+        resetBtn.setVisibility(View.GONE);
+    }
+
+    private void toggleMode() {
+        if (isWorkMode) {
+            isWorkMode = false;
+            timeLeftInMillis = BREAK_TIME;
+            Toast.makeText(this, "Work done! Take a break.", Toast.LENGTH_LONG).show();
+        } else {
+            isWorkMode = true;
+            timeLeftInMillis = WORK_TIME;
+            Toast.makeText(this, "Break over! Back to work.", Toast.LENGTH_LONG).show();
+        }
+
+        updateUI();
+        updateCountDownText();
+        startBtn.setText("START");
+    }
+
+    private void updateUI() {
+        if (modeStatus != null) {
+            modeStatus.setText(isWorkMode ? "FOCUS SESSION" : "BREAK TIME");
+        }
     }
 
     private void updateCountDownText() {

@@ -9,8 +9,10 @@ activity = "1.8.0"
 constraintlayout = "2.1.4"
 volley = "1.2.1"
 glide="5.0.5"
+core-splashscreen = "1.0.1"
 
 [libraries]
+androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "core-splashscreen" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 volley = { group = "com.android.volley", name = "volley", version.ref = "volley" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

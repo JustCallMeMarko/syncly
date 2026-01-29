@@ -1,6 +1,9 @@
 package com.example.syncly.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -128,7 +131,12 @@ public class SignUp extends Fragment {
                             String message = json.getString("message");
 
                             if(status.equals("success")){
+                                int idFromApi = json.getInt("user_id");
                                 Intent intent = new Intent(getActivity(), NavigationLayout.class);
+
+                                SharedPreferences prefs = getContext().getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+                                prefs.edit().putInt("user_id", idFromApi).apply();
+
                                 startActivity(intent);
                                 getActivity().finish();
                             }else{
