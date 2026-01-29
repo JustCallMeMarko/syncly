@@ -32,46 +32,11 @@
             android:text="Sign in to our application now"/>
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/sso"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:orientation="vertical"
-        android:layout_below="@id/header"
-        >
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/googleBtn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/light_grey"
-            android:text="sign in with google"
-            android:textColor="@color/black"
-            android:layout_marginBottom="8dp"/>
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/facebookBtn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:backgroundTint="@color/light_grey"
-            android:text="sign in with facebook"
-            android:textColor="@color/black"/>
-    </LinearLayout>
-    <TextView
-        android:id="@+id/or"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Or Sign in with Email"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="32dp"
-        android:gravity="center_horizontal"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        android:layout_below="@id/sso"/>
-    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginHorizontal="20dp"
-        android:layout_below="@id/or"
+        android:layout_centerVertical="true"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -104,7 +69,8 @@
                     android:layout_weight="9"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
-                    android:layout_marginEnd="20dp"/>
+                    android:layout_marginEnd="20dp"
+                    android:inputType="textEmailAddress"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
         <TextView

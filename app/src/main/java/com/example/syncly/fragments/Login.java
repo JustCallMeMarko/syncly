@@ -123,6 +123,9 @@ public class Login extends Fragment {
                 Toast.makeText(getActivity(), "Input all fields", Toast.LENGTH_LONG).show();
                 return;
             }
+            if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                Toast.makeText(getActivity(), "Error: Input correct email", Toast.LENGTH_LONG).show();
+            }
             StringRequest request = new StringRequest(
                     Request.Method.POST,
                     URL,
