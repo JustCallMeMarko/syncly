@@ -88,7 +88,7 @@ public class SignUp extends Fragment {
 
     TextView login;
     CardView errorCard;
-    EditText emailInpt, passInpt, nameInpt;
+    EditText emailInpt, passInpt, first_name, last_name;
     Button signupBtn;
 
     String URL = "http://10.0.2.2/syncly/Register.php";
@@ -97,7 +97,8 @@ public class SignUp extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         login = view.findViewById(R.id.login);
-        nameInpt = view.findViewById(R.id.nameInpt);
+        first_name = view.findViewById(R.id.first_name);
+        last_name = view.findViewById(R.id.last_name);
         emailInpt = view.findViewById(R.id.emailInpt);
         passInpt = view.findViewById(R.id.passInpt);
         signupBtn = view.findViewById(R.id.signupBtn);
@@ -110,11 +111,12 @@ public class SignUp extends Fragment {
         });
 
         signupBtn.setOnClickListener(v -> {
-            String name = nameInpt.getText().toString();
+            String firstName = first_name.getText().toString();
+            String lastName = last_name.getText().toString();
             String email = emailInpt.getText().toString();
             String pass = passInpt.getText().toString();
 
-            if(email.isEmpty() || pass.isEmpty() || name.isEmpty()){
+            if(email.isEmpty() || pass.isEmpty() || firstName.isEmpty() || lastName.isEmpty()){
                 Toast.makeText(getActivity(), "Input all fields", Toast.LENGTH_LONG).show();
                 return;
             }
@@ -151,7 +153,8 @@ public class SignUp extends Fragment {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-                    params.put("username", name);
+                    params.put("first_name", firstName);
+                    params.put("last_name", lastName);
                     params.put("email", email);
                     params.put("password", pass);
                     return params; }

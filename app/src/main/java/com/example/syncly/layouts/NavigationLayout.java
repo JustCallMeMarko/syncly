@@ -11,12 +11,16 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.syncly.R;
 import com.example.syncly.backend.TaskData;
 import com.example.syncly.fragments.Chat;
+import com.example.syncly.fragments.Drive;
 import com.example.syncly.fragments.Home;
+import com.example.syncly.fragments.Members;
 import com.example.syncly.fragments.Spaces;
+import com.example.syncly.fragments.SpacesHome;
 import com.example.syncly.fragments.TaskSched;
 
 import java.util.Date;
@@ -45,7 +49,13 @@ public class NavigationLayout extends AppCompatActivity {
         chatBtn = findViewById(R.id.chatBtn);
         spacesBtn = findViewById(R.id.spacesBtn);
         taskBtn = findViewById(R.id.taskBtn);
-
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                // This runs every time you go back!
+                setButton();
+            }
+        });
 
         TaskData.getInstance().addItems("AppDev","QUIZ 1", new Date());
         TaskData.getInstance().addItems("AppDev","QUIZ 2", new Date());
@@ -87,22 +97,27 @@ public class NavigationLayout extends AppCompatActivity {
         spacesBtn.setColorFilter( white );
         taskBtn.setColorFilter( white );
     }
-    public void setButton(){
+    public void setButton() {
         resetButtons();
         int green = ContextCompat.getColor(this, R.color.green);
-        switch (selected) {
-            case "home" :
-                homeBtn.setColorFilter( green );
-                break;
-            case "chat" :
-                chatBtn.setColorFilter( green );
-                break;
-            case "spaces" :
-                spacesBtn.setColorFilter( green );
-                break;
-            case "task" :
-                taskBtn.setColorFilter( green );
-                break;
+
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+        if (currentFragment instanceof Home) {
+            homeBtn.setColorFilter(green);
+            selected = "home";
+        } else if (currentFragment instanceof Chat) {
+            chatBtn.setColorFilter(green);
+            selected = "chat";
+        } else if (currentFragment instanceof Spaces ||
+                currentFragment instanceof SpacesHome ||
+                currentFragment instanceof Members ||
+                currentFragment instanceof Drive) {
+            spacesBtn.setColorFilter(green);
+            selected = "spaces";
+        } else if (currentFragment instanceof TaskSched) {
+            taskBtn.setColorFilter(green);
+            selected = "task";
         }
     }
     private void loadFragment(Fragment fragment, String tag) {
@@ -115,7 +130,7 @@ public class NavigationLayout extends AppCompatActivity {
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, fragment)
-                .commit();
+                .commitNow();
 
         setButton();
     }

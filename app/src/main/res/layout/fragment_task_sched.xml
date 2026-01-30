@@ -30,6 +30,14 @@
             android:textSize="18dp"
             android:layout_marginLeft="8dp"
             android:textStyle="bold"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_setting"
+            android:id="@+id/settingBtn"
+            app:tint="@color/black"
+            android:layout_alignParentEnd="true"
+            />
     </RelativeLayout>
     <CalendarView
         android:layout_width="match_parent"

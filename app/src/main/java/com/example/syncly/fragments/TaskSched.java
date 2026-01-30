@@ -13,9 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.syncly.R;
 import com.example.syncly.activities.Pomodoro;
+import com.example.syncly.activities.Settings;
 import com.example.syncly.activities.Task;
 import com.example.syncly.adapters.TaskSchedAdapter;
 import com.example.syncly.backend.TaskData;
@@ -82,6 +84,7 @@ public class TaskSched extends Fragment {
     Button pomodoroBtn, addBtn;
     RecyclerView recyclerView;
     TaskSchedAdapter adapter;
+    ImageView settingBtn;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -93,6 +96,7 @@ public class TaskSched extends Fragment {
 
         pomodoroBtn = view.findViewById(R.id.pomodoroBtn);
         addBtn = view.findViewById(R.id.addBtn);
+        settingBtn = view.findViewById(R.id.settingBtn);
 
         pomodoroBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,6 +110,14 @@ public class TaskSched extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), Task.class);
+                startActivity(intent);
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), Settings.class);
                 startActivity(intent);
             }
         });
