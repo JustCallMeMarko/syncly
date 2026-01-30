@@ -325,14 +325,15 @@
         </LinearLayout>
     </ScrollView>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btnInvite"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
         android:backgroundTint="#000000"
-        android:text="Invite members"
+        app:cornerRadius="10dp"
+        android:text="Invitation Code"
         android:textColor="#FFFFFF" />
 
 </RelativeLayout>
