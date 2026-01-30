@@ -39,9 +39,9 @@
             android:backgroundTint="@color/black"
             app:cornerRadius="6dp"
             android:textSize="12dp"
-            android:text="Join Space"
+            android:text="Create Space"
             android:layout_alignParentEnd="true"
-            android:id="@+id/joinBtn"/>
+            android:id="@+id/createBtn"/>
     </RelativeLayout>
 
     <ScrollView
@@ -113,10 +113,10 @@
     </ScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addButton"
+        android:id="@+id/joinBtn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Create Space"
+        android:text="Join Space via Code"
         android:backgroundTint="@color/black"
         android:textSize="16dp"
         app:cornerRadius="10dp"
