@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,8 +24,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
+import com.example.syncly.adapters.ScheduleAdapter;
+import com.example.syncly.adapters.TaskAdapter;
 import com.example.syncly.layouts.NavigationLayout;
 import com.example.syncly.models.NotesModel;
+import com.example.syncly.models.ScheduleModel;
+import com.example.syncly.models.TaskModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -90,6 +96,10 @@ public class Home extends Fragment {
     Button deleteBtn, addBtn;
     TextView notes, notesCounter;
     ArrayList<NotesModel> mynotes = new ArrayList<>();
+    RecyclerView classSchedule, tasksViewer;
+    ArrayList<ScheduleModel> schedules = new ArrayList<>();
+    ArrayList<TaskModel> tasks = new ArrayList<>();
+
     int count = 0;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -113,7 +123,86 @@ public class Home extends Fragment {
         deleteBtn.setOnClickListener(v -> {
 
         });
+
+        classSchedule = view.findViewById(R.id.classSchedule);
+        tasksViewer = view.findViewById(R.id.tasksViewer);
+
+        classSchedule.setLayoutManager(new LinearLayoutManager(getContext()));
+        tasksViewer.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        getSchedules();
+        getTasks();
+
     }
+    private void getSchedules() {
+        SharedPreferences sp = requireContext()
+                .getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+        int userId = sp.getInt("user_id", -1);
+
+        String url = "http://10.0.2.2/syncly_tasks/class_sched.php?user_id=" + userId;
+
+        StringRequest req = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray arr = new JSONObject(response).getJSONArray("data");
+                        schedules.clear();
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject o = arr.getJSONObject(i);
+                            schedules.add(new ScheduleModel(
+                                    o.getInt("sched_id"),
+                                    o.getString("description"),
+                                    o.getString("schedule_date")
+                            ));
+                        }
+
+                        classSchedule.setAdapter(new ScheduleAdapter(schedules));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                err -> Toast.makeText(getContext(), "Schedule error", Toast.LENGTH_SHORT).show()
+        );
+
+        Volley.newRequestQueue(requireContext()).add(req);
+    }
+
+    private void getTasks() {
+        SharedPreferences sp = requireContext()
+                .getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+        int userId = sp.getInt("user_id", -1);
+
+        String url = "http://10.0.2.2/syncly_tasks/tasks.php?user_id=" + userId;
+
+        StringRequest req = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray arr = new JSONObject(response).getJSONArray("data");
+                        tasks.clear();
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject o = arr.getJSONObject(i);
+                            tasks.add(new TaskModel(
+                                    o.getInt("task_id"),
+                                    o.getString("description"),
+                                    o.getString("due_date"),
+                                    o.getInt("status")
+                            ));
+                        }
+
+                        tasksViewer.setAdapter(new TaskAdapter(tasks));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                err -> Toast.makeText(getContext(), "Task error", Toast.LENGTH_SHORT).show()
+        );
+
+        Volley.newRequestQueue(requireContext()).add(req);
+    }
+
 
     private void updateDisplay() {
         // If list is empty, reset everything to default empty state
@@ -164,4 +253,5 @@ public class Home extends Fragment {
         );
         Volley.newRequestQueue(requireContext()).add(request);
     }
-}
+
+    }
