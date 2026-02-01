@@ -14,7 +14,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.syncly.R;
-import com.example.syncly.backend.TaskData;
 import com.example.syncly.fragments.Chat;
 import com.example.syncly.fragments.Drive;
 import com.example.syncly.fragments.Home;
@@ -56,10 +55,6 @@ public class NavigationLayout extends AppCompatActivity {
                 setButton();
             }
         });
-
-        TaskData.getInstance().addItems("AppDev","QUIZ 1", new Date());
-        TaskData.getInstance().addItems("AppDev","QUIZ 2", new Date());
-
         setButton();
 
         homeBtn.setOnClickListener(new View.OnClickListener() {

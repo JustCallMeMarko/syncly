@@ -1,5 +1,6 @@
 package com.example.syncly.adapters;
 
+import android.graphics.Color; // Import this for colors
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +16,15 @@ import java.util.ArrayList;
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     ArrayList<TaskModel> list;
+    private int textColor = 0;
 
     public TaskAdapter(ArrayList<TaskModel> list) {
         this.list = list;
+    }
+
+    public TaskAdapter(ArrayList<TaskModel> list, int textColor) {
+        this.list = list;
+        this.textColor = textColor;
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -40,8 +47,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder h, int pos) {
-        h.desc.setText(list.get(pos).getDescription());
+        h.desc.setText(list.get(pos).getName());
         h.due.setText(list.get(pos).getDueDate());
+
+        if (textColor != 0) {
+            h.desc.setTextColor(textColor);
+            h.due.setTextColor(textColor);
+            h.due.setAlpha(0.6f);
+        }
     }
 
     @Override
@@ -49,6 +62,3 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
         return list.size();
     }
 }
-
-
-

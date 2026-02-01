@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/backBtn"
         android:layout_marginHorizontal="20dp"
-        android:text="Tasks"
+        android:text="Tasks/Schedules"
         android:textSize="32sp"
         android:textStyle="bold" />
 
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/Title"
         android:layout_marginTop="4dp"
-        android:text="Create tasks for teammates"
+        android:text="Create tasks/schedule for teammates/yourself"
         android:layout_marginHorizontal="20dp"
         android:textSize="16dp"/>
 
@@ -70,55 +70,64 @@
         android:inputType="text"
         android:paddingStart="10dp"
         android:textSize="16dp" />
-
     <TextView
-        android:id="@+id/desc"
+        android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/taskName"
         android:layout_marginTop="12dp"
-        android:text="Description"
+        android:text="Type"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_marginHorizontal="20dp"
         android:textSize="16dp"/>
-
-    <EditText
-        android:id="@+id/description"
+    <GridLayout
+        android:id="@+id/modes"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_below="@id/desc"
+        android:layout_height="wrap_content"
+        android:rowCount="1"
+        android:columnCount="2"
+        android:layout_below="@id/type"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="9dp"
-        android:background="@drawable/bg_border"
-        android:ems="10"
-        android:hint="Short Description"
-        android:inputType="text"
-        android:paddingStart="10dp"
-        android:textSize="16dp" />
-
+        >
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/taskBtn"
+            android:layout_columnWeight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="TASK"
+            android:layout_marginRight="5dp"
+            app:cornerRadius="4dp"
+            android:backgroundTint="@color/card_green"
+            />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/schedBtn"
+            android:layout_columnWeight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="SCHEDULE"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="@color/black"
+            app:cornerRadius="4dp"
+            />
+    </GridLayout>
     <TextView
         android:id="@+id/when"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/description"
+        android:layout_below="@id/modes"
         android:layout_marginTop="12dp"
         android:text="When?"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:layout_marginHorizontal="20dp"
         android:textSize="16dp"/>
-    <!--    TODO: To be changed with datepicker -->
-    <Spinner
+    <DatePicker
         android:id="@+id/date"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
         android:layout_below="@id/when"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="4dp"
-        android:background="@drawable/bg_border"
-        android:layout_marginHorizontal="20dp"
-        android:textSize="16dp"
-        />
-
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -131,13 +140,13 @@
             android:id="@+id/createBtn"
             style="@style/Widget.Material3.Button"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="55dp"
             android:layout_marginEnd="10dp"
+            android:layout_weight="1"
             android:backgroundTint="@color/black"
-            android:text="Create Task"
-            app:cornerRadius="10dp"
-            android:textSize="16dp"/>
+            android:text="Create"
+            android:textSize="16dp"
+            app:cornerRadius="10dp" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clearBtn"

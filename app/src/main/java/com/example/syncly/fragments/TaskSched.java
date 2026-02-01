@@ -1,6 +1,9 @@
 package com.example.syncly.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,18 +17,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
 import com.example.syncly.activities.Pomodoro;
 import com.example.syncly.activities.Settings;
 import com.example.syncly.activities.Task;
-import com.example.syncly.adapters.TaskSchedAdapter;
-import com.example.syncly.backend.TaskData;
-import com.example.syncly.models.TaskSchedData;
+import com.example.syncly.adapters.TaskAdapter;
+import com.example.syncly.models.TaskModel;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -83,16 +91,45 @@ public class TaskSched extends Fragment {
 
     Button pomodoroBtn, addBtn;
     RecyclerView recyclerView;
-    TaskSchedAdapter adapter;
     ImageView settingBtn;
+    ArrayList<TaskModel> tasks = new ArrayList<>();
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
 
-        adapter = new TaskSchedAdapter(getContext(), TaskData.getInstance().getItems());
+        SharedPreferences sp = getContext().getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+        int userId = sp.getInt("user_id", -1);
+
+        String url = "http://10.0.2.2/syncly/tasks.php?user_id=" + userId;
+
+        StringRequest req = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray arr = new JSONObject(response).getJSONArray("data");
+                        tasks.clear();
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject o = arr.getJSONObject(i);
+                            tasks.add(new TaskModel(
+                                    o.getInt("task_id"),
+                                    o.getString("name"),
+                                    o.getString("due_date"),
+                                    o.getInt("status")
+                            ));
+                        }
+
+                        recyclerView.setAdapter( new TaskAdapter(tasks));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                err -> Toast.makeText(getContext(), "Task error", Toast.LENGTH_SHORT).show()
+        );
+
+        Volley.newRequestQueue(getContext()).add(req);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
 
         pomodoroBtn = view.findViewById(R.id.pomodoroBtn);
         addBtn = view.findViewById(R.id.addBtn);
@@ -121,12 +158,5 @@ public class TaskSched extends Fragment {
                 startActivity(intent);
             }
         });
-    }
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (adapter != null) {
-            adapter.updateData();
-        }
     }
 }

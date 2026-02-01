@@ -139,10 +139,11 @@ public class Home extends Fragment {
                 .getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
         int userId = sp.getInt("user_id", -1);
 
-        String url = "http://10.0.2.2/syncly_tasks/class_sched.php?user_id=" + userId;
+        String url = "http://10.0.2.2/syncly/class_sched.php?user_id=" + userId;
 
         StringRequest req = new StringRequest(Request.Method.GET, url,
                 response -> {
+                    android.util.Log.d("SynclyDebug", "Schedule Response: " + response);
                     try {
                         JSONArray arr = new JSONObject(response).getJSONArray("data");
                         schedules.clear();
@@ -151,7 +152,7 @@ public class Home extends Fragment {
                             JSONObject o = arr.getJSONObject(i);
                             schedules.add(new ScheduleModel(
                                     o.getInt("sched_id"),
-                                    o.getString("description"),
+                                    o.getString("name"),
                                     o.getString("schedule_date")
                             ));
                         }
@@ -173,7 +174,7 @@ public class Home extends Fragment {
                 .getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
         int userId = sp.getInt("user_id", -1);
 
-        String url = "http://10.0.2.2/syncly_tasks/tasks.php?user_id=" + userId;
+        String url = "http://10.0.2.2/syncly/tasks.php?user_id=" + userId;
 
         StringRequest req = new StringRequest(Request.Method.GET, url,
                 response -> {
@@ -185,7 +186,7 @@ public class Home extends Fragment {
                             JSONObject o = arr.getJSONObject(i);
                             tasks.add(new TaskModel(
                                     o.getInt("task_id"),
-                                    o.getString("description"),
+                                    o.getString("name"),
                                     o.getString("due_date"),
                                     o.getInt("status")
                             ));

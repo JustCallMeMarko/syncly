@@ -1,5 +1,7 @@
 package com.example.syncly.activities;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -16,10 +18,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
-import com.example.syncly.adapters.TaskSchedAdapter;
-import com.example.syncly.backend.TaskData;
+import com.example.syncly.adapters.TaskAdapter;
+import com.example.syncly.models.TaskModel;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Locale;
 
 public class Pomodoro extends AppCompatActivity {
@@ -34,6 +44,7 @@ public class Pomodoro extends AppCompatActivity {
     private boolean isTimerRunning = false;
     private boolean isWorkMode = true;
     private long timeLeftInMillis = WORK_TIME;
+    ArrayList<TaskModel> tasks = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +65,37 @@ public class Pomodoro extends AppCompatActivity {
         backBtn = findViewById(R.id.backBtn);
         modeStatus = findViewById(R.id.modeStatus);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new TaskSchedAdapter(getApplicationContext(), TaskData.getInstance().getItems()));
+        SharedPreferences sp = getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+        int userId = sp.getInt("user_id", -1);
 
+        String url = "http://10.0.2.2/syncly/tasks.php?user_id=" + userId;
+
+        StringRequest req = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray arr = new JSONObject(response).getJSONArray("data");
+                        tasks.clear();
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject o = arr.getJSONObject(i);
+                            tasks.add(new TaskModel(
+                                    o.getInt("task_id"),
+                                    o.getString("name"),
+                                    o.getString("due_date"),
+                                    o.getInt("status")
+                            ));
+                        }
+                        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                        recyclerView.setAdapter(new TaskAdapter(tasks, Color.WHITE));
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                err -> Toast.makeText(this, "Task error", Toast.LENGTH_SHORT).show()
+        );
+
+        Volley.newRequestQueue(this).add(req);
         backBtn.setOnClickListener(v -> finish());
 
         startBtn.setOnClickListener(v -> {
