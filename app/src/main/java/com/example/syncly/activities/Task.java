@@ -23,6 +23,7 @@ public class Task extends AppCompatActivity {
     EditText taskName, description;
     Button createBtn, clearBtn;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
