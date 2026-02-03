@@ -20,13 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
+import com.example.syncly.activities.Note;
 import com.example.syncly.adapters.ScheduleAdapter;
 import com.example.syncly.adapters.TaskAdapter;
-import com.example.syncly.layouts.NavigationLayout;
 import com.example.syncly.models.NotesModel;
 import com.example.syncly.models.ScheduleModel;
 import com.example.syncly.models.TaskModel;
@@ -121,7 +120,19 @@ public class Home extends Fragment {
         });
 
         deleteBtn.setOnClickListener(v -> {
+            if (mynotes.isEmpty()) {
+                Toast.makeText(getActivity(), "No notes to delete", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
+            int noteId = mynotes.get(count).getNote_id();
+            deleteNote(noteId);
+            updateDisplay();
+        });
+
+        addBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), Note.class);
+            startActivity(intent);
         });
 
         classSchedule = view.findViewById(R.id.classSchedule);
@@ -143,7 +154,6 @@ public class Home extends Fragment {
 
         StringRequest req = new StringRequest(Request.Method.GET, url,
                 response -> {
-                    android.util.Log.d("SynclyDebug", "Schedule Response: " + response);
                     try {
                         JSONArray arr = new JSONObject(response).getJSONArray("data");
                         schedules.clear();
@@ -255,4 +265,44 @@ public class Home extends Fragment {
         Volley.newRequestQueue(requireContext()).add(request);
     }
 
+    private void deleteNote(int noteId) {
+        String URL = "http://10.0.2.2/syncly/DeleteNote.php";
+
+        StringRequest request = new StringRequest(
+                Request.Method.POST,
+                URL,
+                response -> {
+                    try {
+                        JSONObject json = new JSONObject(response);
+                        if (json.getString("status").equals("success")) {
+                            Toast.makeText(requireContext(), "Note deleted", Toast.LENGTH_SHORT).show();
+
+                            // remove locally
+                            mynotes.remove(count);
+
+                            if (count >= mynotes.size() && count > 0) {
+                                count--;
+                            }
+
+                            updateDisplay();
+                        } else {
+                            Toast.makeText(requireContext(),
+                                    json.getString("message"), Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                error -> Toast.makeText(requireContext(),
+                        "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show()
+        ) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("note_id", String.valueOf(noteId));
+                return params;
+            }
+        };
+        Volley.newRequestQueue(requireContext()).add(request);
     }
+}

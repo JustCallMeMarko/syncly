@@ -93,43 +93,18 @@ public class TaskSched extends Fragment {
     RecyclerView recyclerView;
     ImageView settingBtn;
     ArrayList<TaskModel> tasks = new ArrayList<>();
+    TaskAdapter adapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.recyclerView);
-
-        SharedPreferences sp = getContext().getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
-        int userId = sp.getInt("user_id", -1);
-
-        String url = "http://10.0.2.2/syncly/tasks.php?user_id=" + userId;
-
-        StringRequest req = new StringRequest(Request.Method.GET, url,
-                response -> {
-                    try {
-                        JSONArray arr = new JSONObject(response).getJSONArray("data");
-                        tasks.clear();
-
-                        for (int i = 0; i < arr.length(); i++) {
-                            JSONObject o = arr.getJSONObject(i);
-                            tasks.add(new TaskModel(
-                                    o.getInt("task_id"),
-                                    o.getString("name"),
-                                    o.getString("due_date"),
-                                    o.getInt("status")
-                            ));
-                        }
-
-                        recyclerView.setAdapter( new TaskAdapter(tasks));
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                },
-                err -> Toast.makeText(getContext(), "Task error", Toast.LENGTH_SHORT).show()
-        );
-
-        Volley.newRequestQueue(getContext()).add(req);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize the adapter once
+        adapter = new TaskAdapter(tasks);
+        recyclerView.setAdapter(adapter);
+
+        fetchTasks();
 
         pomodoroBtn = view.findViewById(R.id.pomodoroBtn);
         addBtn = view.findViewById(R.id.addBtn);
@@ -158,5 +133,45 @@ public class TaskSched extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        // This runs every time you navigate back to this fragment
+        fetchTasks();
+    }
+    private void fetchTasks() {
+        SharedPreferences sp = getContext().getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+        int userId = sp.getInt("user_id", -1);
+
+        String url = "http://10.0.2.2/syncly/tasks.php?user_id=" + userId;
+
+        StringRequest req = new StringRequest(Request.Method.GET, url,
+                response -> {
+                    try {
+                        JSONArray arr = new JSONObject(response).getJSONArray("data");
+                        tasks.clear(); // Clear old data
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject o = arr.getJSONObject(i);
+                            tasks.add(new TaskModel(
+                                    o.getInt("task_id"),
+                                    o.getString("name"),
+                                    o.getString("due_date"),
+                                    o.getInt("status")
+                            ));
+                        }
+
+                        // Notify the adapter that data changed
+                        adapter.notifyDataSetChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                err -> Toast.makeText(getContext(), "Task error", Toast.LENGTH_SHORT).show()
+        );
+
+        Volley.newRequestQueue(getContext()).add(req);
     }
 }

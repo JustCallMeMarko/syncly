@@ -1,36 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activities.Settings">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
         android:layout_margin="20dp"
-        android:id="@+id/heading"
-        >
+        android:id="@+id/backBtn">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/icon_setting"
-            android:id="@+id/settingIcon"
-            android:layout_centerVertical="true"
-            app:tint="@color/black"
-            />
-
+            android:src="@drawable/icon_arrow_back"
+            android:layout_marginRight="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/settingIcon"
-            android:text="Settings"
-            android:textSize="20dp"
-            android:layout_marginLeft="8dp"
+            android:text="Back"
             android:textStyle="bold"
-            android:layout_centerVertical="true"/>
-    </RelativeLayout>
+            />
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Settings"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"/>
 
-</RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:text="First Name"
+        android:textSize="22dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/firstName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginHorizontal="20dp"
+        android:text="Name"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Last Name"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:id="@+id/lastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Name"
+        android:textSize="18dp"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Email"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="email"
+        android:textSize="18dp"
+        android:layout_centerVertical="true"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="60dp"
+        android:layout_height="50dp"
+        android:backgroundTint="@color/black"
+        app:cornerRadius="10dp"
+        android:textSize="18dp"
+        android:text="Logout"
+        android:layout_marginTop="40dp"
+        />
+</LinearLayout>
