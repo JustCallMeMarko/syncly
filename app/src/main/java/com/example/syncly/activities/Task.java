@@ -168,7 +168,7 @@ public class Task extends AppCompatActivity {
                         JSONObject jsonResponse = new JSONObject(response);
                         String status = jsonResponse.getString("status");
                         if (status.equals("success")) {
-                            Toast.makeText(Task.this, "Task Added!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Task.this, "Schedule Added!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             Toast.makeText(Task.this, "Error: " + jsonResponse.getString("message"), Toast.LENGTH_LONG).show();

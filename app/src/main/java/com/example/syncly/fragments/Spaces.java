@@ -1,21 +1,43 @@
 package com.example.syncly.fragments;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.syncly.R;
+import com.example.syncly.activities.CreateSpace;
 import com.example.syncly.activities.JoinSpace;
 import com.example.syncly.activities.Settings;
+import com.example.syncly.adapters.SpacesAdapter;
+import com.example.syncly.adapters.TaskAdapter;
+import com.example.syncly.models.SpacesModel;
+import com.example.syncly.models.TaskModel;
 import com.google.android.material.button.MaterialButton;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,21 +93,28 @@ public class Spaces extends Fragment {
         return inflater.inflate(R.layout.fragment_spaces, container, false);
     }
 
-    CardView spacesBtn;
-    MaterialButton joinBtn;
+    MaterialButton joinBtn, addBtn;
+    public static ArrayList<SpacesModel> spacesList = new ArrayList<>();
+    RecyclerView recyclerView;
+    SpacesAdapter adapter;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        spacesBtn = view.findViewById(R.id.spacesBtn);
+        addBtn = view.findViewById(R.id.addBtn);
         joinBtn = view.findViewById(R.id.joinBtn);
+        recyclerView = view.findViewById(R.id.spacesRecycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        spacesBtn.setOnClickListener(new View.OnClickListener() {
+        adapter = new SpacesAdapter(spacesList);
+        recyclerView.setAdapter(adapter);
+
+        getSpaces();
+
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, new SpacesHome())
-                        .addToBackStack(null)
-                        .commit();
+                Intent intent = new Intent(getActivity(), CreateSpace.class);
+                startActivity(intent);
             }
         });
         joinBtn.setOnClickListener(new View.OnClickListener() {
@@ -95,5 +124,50 @@ public class Spaces extends Fragment {
                 startActivity(intent);
             }
         });
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+    private void getSpaces() {
+        String url = "http://10.0.2.2/syncly/GetSpaces.php";
+
+        StringRequest req = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    try {
+                        JSONArray arr = new JSONObject(response).getJSONArray("spaces");
+                        spacesList.clear();
+
+                        for (int i = 0; i < arr.length(); i++) {
+                            JSONObject o = arr.getJSONObject(i);
+                            spacesList.add(new SpacesModel(
+                                    o.getInt("space_id"),
+                                    o.getString("space_name"),
+                                    o.getString("due_date")
+                            ));
+                        }
+
+                        adapter.notifyDataSetChanged();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                },
+                err -> Toast.makeText(getContext(), "Task error", Toast.LENGTH_SHORT).show()
+        ){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                SharedPreferences sp = requireContext()
+                        .getSharedPreferences("SynclyPrefs", MODE_PRIVATE);
+                int userId = sp.getInt("user_id", -1);
+                params.put("user_id", String.valueOf(userId));
+
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(requireContext()).add(req);
     }
 }

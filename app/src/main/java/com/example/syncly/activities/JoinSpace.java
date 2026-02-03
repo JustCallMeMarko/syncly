@@ -1,6 +1,7 @@
 package com.example.syncly.activities;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.syncly.R;
 
 public class JoinSpace extends AppCompatActivity {
-
+    private LinearLayout backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,5 +23,9 @@ public class JoinSpace extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        backBtn = findViewById(R.id.backBtn);
+
+        backBtn.setOnClickListener(v -> finish());
     }
 }

@@ -145,6 +145,13 @@ public class Home extends Fragment {
         getTasks();
 
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        getNotes();
+        getSchedules();
+        getTasks();
+    }
     private void getSchedules() {
         SharedPreferences sp = requireContext()
                 .getSharedPreferences("SynclyPrefs", MODE_PRIVATE);

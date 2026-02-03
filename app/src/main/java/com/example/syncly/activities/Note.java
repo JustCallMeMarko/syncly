@@ -37,7 +37,6 @@ public class Note extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_note);
 
-        // link views
         saveBtn = findViewById(R.id.saveBtn);
         noteEt = findViewById(R.id.noteEt);
         backBtn = findViewById(R.id.backBtn);
@@ -80,6 +79,7 @@ public class Note extends AppCompatActivity {
                         JSONObject json = new JSONObject(response);
                         if (json.getString("status").equals("success")) {
                             Toast.makeText(Note.this, "Note added", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             Toast.makeText(Note.this,
                                     json.getString("message"), Toast.LENGTH_SHORT).show();

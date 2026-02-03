@@ -43,76 +43,18 @@
             android:id="@+id/joinBtn"/>
     </RelativeLayout>
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/spacesRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
         android:layout_below="@id/heading"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="80dp"
-        >
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
-                android:layout_height="94dp"
-                android:layout_marginBottom="8dp"
-                app:cardCornerRadius="15dp"
-                app:strokeColor="@color/gray"
-                android:backgroundTint="@color/white"
-                android:id="@+id/spacesBtn"
-                >
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:padding="10dp">
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_gravity="center|start"
-                        android:background="@color/black"
-                        app:cardCornerRadius="10dp"
-                        android:backgroundTint="@color/light_blue"
-                        app:strokeColor="@color/light_blue"
-                        >
+        tools:listitem="@layout/item_space"/>
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="sans-serif"
-                            android:text="AD"
-                            android:textSize="32dp"
-                            android:id="@+id/initials"/>
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:orientation="vertical"
-                        android:layout_marginLeft="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="App Dev Project"
-                            android:fontFamily="sans-serif"
-                            android:textStyle="bold"
-                            android:textSize="16dp"
-                            android:id="@+id/name"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="6 members"
-                            android:fontFamily="sans-serif"
-                            android:textSize="14dp"
-                            android:id="@+id/membersCount"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
-    </ScrollView>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addButton"
+        android:id="@+id/addBtn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="Create Space"

@@ -1,0 +1,117 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        android:id="@+id/backBtn">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arrow_back"
+            android:layout_marginRight="8dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Space"
+        android:textSize="26dp"
+        android:textStyle="bold"
+        android:layout_below="@id/backBtn"
+        android:layout_marginHorizontal="20dp"/>
+    <LinearLayout
+        android:id="@+id/upload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/tvTitle"
+        android:gravity="center_vertical"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        >
+        <ImageView
+            android:id="@+id/imgSpace"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:background="@drawable/bg_circle"/>
+
+        <TextView
+            android:id="@+id/tvUpdatePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upload Space Photo"
+            android:textSize="18sp"
+            android:textColor="#777777"
+            android:layout_marginStart="12dp"/>
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tvSpaceLabel"
+        android:layout_below="@id/upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create Space Name"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <EditText
+        android:id="@+id/etSpaceName"
+        android:layout_below="@id/tvSpaceLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Space Name"
+        android:textSize="16dp"
+        android:background="@null"
+        android:paddingVertical="8dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <TextView
+        android:id="@+id/Deadline"
+        android:layout_below="@id/etSpaceName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Set Deadline"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"/>
+
+    <DatePicker
+        android:id="@+id/date"
+        android:layout_below="@id/Deadline"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:datePickerMode="spinner"
+        android:calendarViewShown="false"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="16dp"
+        android:text="Create Space"
+        android:backgroundTint="@color/black"
+        android:layout_marginHorizontal="20dp"
+        app:cornerRadius="10dp"
+        android:insetBottom="0dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/createSpaceBtn"
+        android:layout_marginBottom="20dp"/>
+
+</RelativeLayout>

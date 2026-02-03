@@ -100,19 +100,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="1dp" />
 
-        <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="+"
-                android:textStyle="bold"
-                android:layout_alignParentBottom="true"
-                android:paddingBottom="10dp"
-                android:textSize="22dp"
-                android:paddingRight="22dp"
-                android:layout_above="@id/startBtn"
-                android:layout_alignParentEnd="true"
-                android:layout_marginBottom="8dp"
-                />
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="60dp"
