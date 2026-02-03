@@ -13,6 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.syncly.R;
+import com.example.syncly.activities.JoinSpace;
+import com.example.syncly.activities.Settings;
+import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,10 +72,12 @@ public class Spaces extends Fragment {
     }
 
     CardView spacesBtn;
+    MaterialButton joinBtn;
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         spacesBtn = view.findViewById(R.id.spacesBtn);
+        joinBtn = view.findViewById(R.id.joinBtn);
 
         spacesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +86,13 @@ public class Spaces extends Fragment {
                         .replace(R.id.fragment_container, new SpacesHome())
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+        joinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), JoinSpace.class);
+                startActivity(intent);
             }
         });
     }
