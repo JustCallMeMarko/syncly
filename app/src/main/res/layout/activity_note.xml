@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Notes"
-        android:textSize="26dp"
+        android:textSize="26sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         android:layout_centerVertical="true"/>
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Note"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <com.google.android.material.card.MaterialCardView
@@ -70,6 +70,7 @@
                 android:gravity="top|start"
                 android:hint="Enter your notes here"
                 android:inputType="textMultiLine"
+                android:textSize="16sp"
                 android:layout_margin="10dp"
                 android:maxLength="100"
                 android:minLines="7"
@@ -85,6 +86,7 @@
         android:layout_height="60dp"
         android:backgroundTint="@color/black"
         app:cornerRadius="10dp"
+        android:textSize="16sp"
         android:text="Save"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

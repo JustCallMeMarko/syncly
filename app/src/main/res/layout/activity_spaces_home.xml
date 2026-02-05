@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".fragments.SpacesHome">
+    android:id="@+id/main"
+    tools:context=".activities.SpacesHome">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,6 +48,7 @@
                 android:fontFamily="sans-serif"
                 android:text="AD"
                 android:textSize="32dp"
+                android:textColor="@color/white"
                 android:id="@+id/initials"/>
         </com.google.android.material.card.MaterialCardView>
 
@@ -62,7 +64,7 @@
                 android:text="App Dev Project"
                 android:fontFamily="sans-serif"
                 android:textStyle="bold"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:id="@+id/name"/>
 
             <TextView
@@ -70,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:text="6 members"
                 android:fontFamily="sans-serif"
-                android:textSize="14dp"
-                android:id="@+id/membersNum"/>
+                android:textSize="14sp"
+                android:id="@+id/deadline"/>
         </LinearLayout>
     </LinearLayout>
     <FrameLayout
@@ -86,7 +88,7 @@
         android:orientation="horizontal"
         android:layout_marginHorizontal="20dp">
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/members"
+            android:id="@+id/membersCard"
             android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_weight="1"
@@ -108,6 +110,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     android:text="Members" />
 
                 <TextView
@@ -117,12 +120,12 @@
                     android:text="9"
                     android:textSize="48sp"
                     android:gravity="center"
-                    android:id="@+id/membersCount"/>
+                    android:id="@+id/members"/>
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
 
         <com.google.android.material.card.MaterialCardView
-            android:id="@+id/folder"
+            android:id="@+id/folderCard"
             android:layout_width="0dp"
             android:layout_height="160dp"
             android:layout_weight="1"
@@ -143,6 +146,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
+                    android:textSize="16sp"
                     android:text="Files" />
 
                 <ImageView
@@ -170,44 +174,27 @@
             android:padding="16dp"
             >
             <TextView
+                android:textSize="16sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="Current Task"/>
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="0dp"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="20dp">
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:text="Add Task"
-            android:textSize="16dp"
-            android:backgroundTint="@color/black"
-            app:cornerRadius="10dp"
-            android:layout_marginRight="5dp"
-            android:id="@+id/taskBtn"
-            />
-        <com.google.android.material.button.MaterialButton
-            android:layout_width="0dp"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:text="View Chat"
-            android:textSize="16dp"
-            android:backgroundTint="@color/black"
-            app:cornerRadius="10dp"
-            android:layout_marginLeft="5dp"
-            android:id="@+id/chatBtn"
-            />
-
-    </LinearLayout>
+        android:layout_marginHorizontal="20dp"
+        android:id="@+id/taskBtn"
+        android:layout_weight="1.3"
+        android:backgroundTint="@color/black"
+        android:text="Add Task"
+        android:textSize="16sp"
+        app:cornerRadius="10dp" />
 </LinearLayout>

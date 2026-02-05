@@ -22,13 +22,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:textStyle="bold"
             android:text="Join the Community"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:text="We are very excited to have you here!"/>
     </LinearLayout>
     <LinearLayout
@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="First Name"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
@@ -67,6 +67,7 @@
                     android:id="@+id/first_name"
                     android:layout_width="0dp"
                     android:layout_weight="9"
+                    android:textSize="16sp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:layout_marginEnd="20dp"/>
@@ -76,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Last Name"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
@@ -101,6 +102,7 @@
                     android:id="@+id/last_name"
                     android:layout_width="0dp"
                     android:layout_weight="9"
+                    android:textSize="16sp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:layout_marginEnd="20dp"/>
@@ -110,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Email"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
@@ -135,6 +137,7 @@
                     android:id="@+id/emailInpt"
                     android:layout_width="0dp"
                     android:layout_weight="9"
+                    android:textSize="16sp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:layout_marginEnd="20dp"
@@ -145,7 +148,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Password"
-            android:textSize="16sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
         <androidx.cardview.widget.CardView
@@ -171,6 +174,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="9"
                     android:inputType="textPassword"
+                    android:textSize="16sp"
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:layout_marginEnd="20dp"/>
@@ -181,13 +185,13 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signupBtn"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
+        android:textSize="16sp"
         android:layout_above="@id/question"
         android:layout_marginHorizontal="20dp"
         app:cornerRadius="10dp"
         android:backgroundTint="@color/green"
-        android:text="Sign Up"
-        android:textSize="20sp"/>
+        android:text="Sign Up"/>
 
     <LinearLayout
         android:id="@+id/question"

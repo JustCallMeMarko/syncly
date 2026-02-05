@@ -15,14 +15,9 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.syncly.R;
 import com.example.syncly.fragments.Chat;
-import com.example.syncly.fragments.Drive;
 import com.example.syncly.fragments.Home;
-import com.example.syncly.fragments.Members;
 import com.example.syncly.fragments.Spaces;
-import com.example.syncly.fragments.SpacesHome;
 import com.example.syncly.fragments.TaskSched;
-
-import java.util.Date;
 
 public class NavigationLayout extends AppCompatActivity {
     ImageButton homeBtn;
@@ -104,10 +99,7 @@ public class NavigationLayout extends AppCompatActivity {
         } else if (currentFragment instanceof Chat) {
             chatBtn.setColorFilter(green);
             selected = "chat";
-        } else if (currentFragment instanceof Spaces ||
-                currentFragment instanceof SpacesHome ||
-                currentFragment instanceof Members ||
-                currentFragment instanceof Drive) {
+        } else if (currentFragment instanceof Spaces) {
             spacesBtn.setColorFilter(green);
             selected = "spaces";
         } else if (currentFragment instanceof TaskSched) {

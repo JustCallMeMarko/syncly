@@ -1,5 +1,7 @@
 package com.example.syncly.adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.syncly.R;
+import com.example.syncly.activities.SpacesHome;
 import com.example.syncly.models.SpacesModel;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
@@ -38,21 +42,21 @@ public class SpacesAdapter extends RecyclerView.Adapter<SpacesAdapter.SpaceViewH
         holder.spaceName.setText(space.getName());
         holder.deadlineText.setText("Deadline: " + space.getDeadline());
 
-        Uri imageUri = space.getImageUri();
+        String initials = space.getName().length() >= 2
+                ? space.getName().substring(0, 2).toUpperCase()
+                : space.getName().toUpperCase();
+        holder.avatarText.setText(initials);
 
-        if (imageUri != null) {
-            holder.avatarImage.setImageURI(imageUri);
-            holder.avatarImage.setVisibility(View.VISIBLE);
-            holder.avatarText.setVisibility(View.GONE);
-        } else {
-            String initials = space.getName().length() >= 2
-                    ? space.getName().substring(0, 2).toUpperCase()
-                    : space.getName().toUpperCase();
-
-            holder.avatarText.setText(initials);
-            holder.avatarText.setVisibility(View.VISIBLE);
-            holder.avatarImage.setVisibility(View.GONE);
-        }
+        holder.spacesBtn.setOnClickListener(v ->
+        {
+            Context context = v.getContext(); // Get context from the clicked view
+            Intent intent = new Intent(context, SpacesHome.class);
+            intent.putExtra("space_id", space.getSpaceId());
+            intent.putExtra("initials", initials);
+            intent.putExtra("name", space.getName());
+            intent.putExtra("deadline", space.getDeadline());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -62,16 +66,16 @@ public class SpacesAdapter extends RecyclerView.Adapter<SpacesAdapter.SpaceViewH
 
     static class SpaceViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView avatarImage;
         TextView avatarText, spaceName, deadlineText;
+        MaterialCardView spacesBtn;
 
         public SpaceViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            avatarImage = itemView.findViewById(R.id.avatarImage);
             avatarText = itemView.findViewById(R.id.avatarText);
             spaceName = itemView.findViewById(R.id.spaceName);
             deadlineText = itemView.findViewById(R.id.deadlineText);
+            spacesBtn = itemView.findViewById(R.id.spacesBtn);
         }
     }
 }

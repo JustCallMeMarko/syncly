@@ -17,22 +17,10 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_gravity="center|start"
-                android:background="@color/black"
+                app:cardBackgroundColor="@color/light_blue"
                 app:cardCornerRadius="10dp"
                 app:strokeColor="@color/light_blue"
                 >
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    >
-
-                    <ImageView
-                        android:id="@+id/avatarImage"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scaleType="centerCrop"
-                        android:background="@color/light_blue"/>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -41,8 +29,8 @@
                         android:gravity="center"
                         android:text="AD"
                         android:textSize="32dp"
+                        android:textColor="@color/white"
                         android:id="@+id/avatarText"/>
-                </FrameLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
@@ -57,7 +45,7 @@
                     android:text="App Dev Project"
                     android:fontFamily="sans-serif"
                     android:textStyle="bold"
-                    android:textSize="16dp"
+                    android:textSize="16sp"
                     android:id="@+id/spaceName"/>
 
                 <TextView
@@ -65,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:text="Due Feb 2"
                     android:fontFamily="sans-serif"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:id="@+id/deadlineText"/>
             </LinearLayout>
         </LinearLayout>

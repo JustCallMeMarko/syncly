@@ -3,16 +3,15 @@ package com.example.syncly.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.syncly.R;
 import com.example.syncly.models.MessageModel;
-import com.example.syncly.viewholders.ChatViewHolder;
-
 import java.util.List;
 
-public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
+public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
     private List<MessageModel> messageList;
 
     public ChatAdapter(List<MessageModel> messageList) {
@@ -35,5 +34,13 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatViewHolder> {
     public int getItemCount() {
         return messageList.size();
     }
-}
 
+    class ChatViewHolder extends RecyclerView.ViewHolder {
+        TextView textMessage;
+
+        public ChatViewHolder(@NonNull View itemView) {
+            super(itemView);
+            textMessage = itemView.findViewById(R.id.textMessage);
+        }
+    }
+}

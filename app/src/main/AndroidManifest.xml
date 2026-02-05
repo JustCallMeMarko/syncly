@@ -15,6 +15,18 @@
         android:theme="@style/Theme.Syncly"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.InviteCode"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Folder"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Members"
+            android:exported="false" />
+        <activity
+            android:name=".activities.SpacesHome"
+            android:exported="false" />
+        <activity
             android:name=".activities.CreateSpace"
             android:exported="false" />
         <activity

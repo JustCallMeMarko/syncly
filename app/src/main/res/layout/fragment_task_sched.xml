@@ -55,17 +55,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:text="Upcoming"
             android:layout_centerVertical="true"/>
 
         <com.google.android.material.button.MaterialButton
             android:layout_width="130dp"
-            android:layout_height="42dp"
+            android:layout_height="46dp"
             android:backgroundTint="@color/black"
             app:cornerRadius="6dp"
-            android:textSize="12dp"
+            android:textSize="16sp"
             android:text="Pomodoro"
             android:layout_alignParentEnd="true"
             android:id="@+id/pomodoroBtn"/>
@@ -80,7 +80,7 @@
     <com.google.android.material.button.MaterialButton
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textSize="16dp"
+        android:textSize="16sp"
         android:text="Add Task/Schedule"
         android:backgroundTint="@color/black"
         android:layout_marginHorizontal="20dp"

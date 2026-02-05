@@ -128,7 +128,7 @@ public class Spaces extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        getSpaces();
     }
     private void getSpaces() {
         String url = "http://10.0.2.2/syncly/GetSpaces.php";

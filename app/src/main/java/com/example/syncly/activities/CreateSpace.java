@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -80,6 +81,7 @@ public class CreateSpace extends AppCompatActivity {
                             Toast.makeText(CreateSpace.this, "Space Created!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
+                            Log.d("synclyresponse", jsonResponse.getString("message"));
                             Toast.makeText(CreateSpace.this, "Error: " + jsonResponse.getString("message"), Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {

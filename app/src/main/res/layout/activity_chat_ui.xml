@@ -51,7 +51,7 @@
                 android:layout_height="match_parent"
                 android:background="#CCCCCC"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sample_profile" />
+                android:src="@drawable/sample_male_profile" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -60,10 +60,10 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/img"
             android:layout_centerVertical="true"
-            android:text="Cantimbuhan, Mark L."
+            android:text="Smith, Sam"
             android:textColor="@color/white"
             android:layout_marginStart="16dp"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold" />
 
         <ImageButton
@@ -125,6 +125,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="14dp"
                     android:hint="Aa"
+                    android:textSize="16sp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/gray"
                     android:background="@android:color/transparent"

@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -38,9 +40,11 @@ public class Task extends AppCompatActivity {
     EditText taskName;
     Button createBtn, clearBtn;
     MaterialButton taskBtn, schedBtn;
+    TextView title, descriptionTitle;
     DatePicker date;
     boolean isTask = true;
     String URL = "";
+    boolean is_space = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +63,15 @@ public class Task extends AppCompatActivity {
         taskBtn = findViewById(R.id.taskBtn);
         schedBtn = findViewById(R.id.schedBtn);
         date = findViewById(R.id.date);
+        title = findViewById(R.id.title);
+        descriptionTitle = findViewById(R.id.descriptionTitle);
+        is_space = getIntent().getBooleanExtra("is_space", false);
+
+        if(is_space){
+            schedBtn.setVisibility(View.GONE);
+            title.setText("Tasks");
+            descriptionTitle.setText("Create tasks for your space");
+        }
 
 
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -76,6 +89,10 @@ public class Task extends AppCompatActivity {
                     return;
                 }
                 if(isTask) {
+                    if(is_space){
+                        addSpaceTask();
+                        return;
+                    }
                     addTask();
                 }else{
                     addSched();
@@ -194,6 +211,51 @@ public class Task extends AppCompatActivity {
 
                 params.put("name", taskName.getText().toString());
                 params.put("id", String.valueOf(userId));
+                params.put("date", dateForDatabase);
+
+                return params;
+            }
+        };
+
+        RequestQueue queue = Volley.newRequestQueue(Task.this);
+        queue.add(stringRequest);
+    }
+    private void addSpaceTask(){
+        URL = "http://10.0.2.2/syncly/AddSpaceTask.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+                response -> {
+                    try {
+                        JSONObject jsonResponse = new JSONObject(response);
+                        String status = jsonResponse.getString("status");
+                        if (status.equals("success")) {
+                            Toast.makeText(Task.this, "Task Added!", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            Log.d("synclyresponse", jsonResponse.getString("message") + getIntent().getStringExtra("space_id"));
+                            Toast.makeText(Task.this, "Error: " + jsonResponse.getString("message"), Toast.LENGTH_LONG).show();
+                        }
+                    } catch (JSONException e) {
+                        throw new RuntimeException();
+                    }
+                },
+                error -> {
+                    Toast.makeText(Task.this, "Connection Error", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+
+                // Get values from your UI components
+                int day = date.getDayOfMonth();
+                int month = date.getMonth() + 1;
+                int year = date.getYear();
+                String dateForDatabase = String.format("%04d-%02d-%02d", year, month, day);
+
+                int space_id = getIntent().getIntExtra("space_id", -1);
+
+                // Put params into the map (Strings only!)
+                params.put("name", taskName.getText().toString());
+                params.put("space_id", String.valueOf(space_id));
                 params.put("date", dateForDatabase);
 
                 return params;
