@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class ChatUI extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ChatAdapter adapter;
     private List<MessageModel> messageList;
+    private ImageView imageView;
     String URL = "http://10.0.2.2/syncly/save_chat.php";
 
     @Override
@@ -59,12 +61,16 @@ public class ChatUI extends AppCompatActivity {
         messageInput = findViewById(R.id.messageInput);
         sendBtn = findViewById(R.id.sendBtn);
         recyclerView = findViewById(R.id.chatRecyclerView);
+        imageView = findViewById(R.id.imageView);
 
         messageList = new ArrayList<>();
         adapter = new ChatAdapter(messageList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
+        if(getIntent().getBooleanExtra("chatbot", false)){
+            nameHeader.setText("Syncly Bot");
+            imageView.setImageResource(R.drawable.bot_image);
+        }
         String friendName = getIntent().getStringExtra("FRIEND_NAME");
         if (friendName != null) {
             nameHeader.setText(friendName);

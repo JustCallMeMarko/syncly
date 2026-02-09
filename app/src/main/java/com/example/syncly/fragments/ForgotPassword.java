@@ -83,6 +83,7 @@ public class ForgotPassword extends Fragment {
                 Request.Method.POST,
                 url,
                 response -> {
+                    Log.d("synclyresponse", response);
                     // Re-enable button
                     sendOtpBtn.setEnabled(true);
                     sendOtpBtn.setText("Send OTP");

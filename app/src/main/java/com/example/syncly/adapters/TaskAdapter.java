@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,12 +39,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView desc, due;
         CheckBox checkBox;
+        ImageView trashBtn;
 
         ViewHolder(View v) {
             super(v);
             desc = v.findViewById(R.id.taskDesc);
             due = v.findViewById(R.id.taskDue);
             checkBox = v.findViewById(R.id.checkBox);
+            trashBtn = v.findViewById(R.id.trashBtn);
         }
     }
 
@@ -73,9 +76,14 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
             updateTaskStatus(task.getId(), status, h.itemView.getContext());
         });
 
+        h.trashBtn.setOnClickListener(v -> {
+            deleteTask(task.getId(), pos, h.itemView.getContext());
+        });
+
         if (textColor != 0) {
             h.desc.setTextColor(textColor);
             h.due.setTextColor(textColor);
+            h.trashBtn.setColorFilter(textColor);
         }
     }
 
@@ -97,6 +105,28 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
                 Map<String, String> params = new HashMap<>();
                 params.put("task_id", String.valueOf(taskId));
                 params.put("status", String.valueOf(status));
+                return params;
+            }
+        };
+
+        Volley.newRequestQueue(context).add(stringRequest);
+    }
+    private void deleteTask(int taskId, int position, Context context) {
+        String url = "http://10.0.2.2/syncly/DeleteTask.php";
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                response -> {
+                    list.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, list.size());
+                 },
+                error -> {
+                    Toast.makeText(context, "Failed to delete", Toast.LENGTH_SHORT).show();
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("task_id", String.valueOf(taskId));
                 return params;
             }
         };

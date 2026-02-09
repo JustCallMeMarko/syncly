@@ -9,27 +9,35 @@
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
         />
+
     <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="9"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="8dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/taskDesc"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:text="sampleName"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="sampleName"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/taskDue"
-            android:text="sample date"
-            android:textSize="14sp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="sample date"
+            android:textSize="14sp" />
     </LinearLayout>
+    <ImageView
+        android:id="@+id/trashBtn"
+        android:layout_width="0dp"
+        android:layout_weight="0.7"
+        android:layout_height="26dp"
+        android:tint="@color/black"
+        android:src="@drawable/icon_trash"
+        android:layout_marginRight="8dp"/>
 </LinearLayout>
-
-

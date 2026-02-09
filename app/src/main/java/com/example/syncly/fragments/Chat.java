@@ -5,12 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.syncly.R;
 import com.example.syncly.activities.ChatUI;
@@ -69,11 +71,15 @@ public class Chat extends Fragment {
         return inflater.inflate(R.layout.fragment_chat, container, false);
     }
     ConstraintLayout profile;
+    CardView sendBtn;
+    EditText chatbotInput;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         profile = view.findViewById(R.id.profile);
+        sendBtn = view.findViewById(R.id.sendBtn);
+        chatbotInput = view.findViewById(R.id.chatbotInput);
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +87,13 @@ public class Chat extends Fragment {
                 Intent intent = new Intent(getActivity(), ChatUI.class);
                 startActivity(intent);
             }
+        });
+        sendBtn.setOnClickListener(v-> {
+            String input = chatbotInput.getText().toString().trim();
+            Intent intent = new Intent(getActivity(), ChatUI.class);
+            intent.putExtra("chatbot", true);
+            intent.putExtra("chat_input", input);
+            startActivity(intent);
         });
     }
 }
